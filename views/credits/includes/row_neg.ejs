@@ -1,0 +1,56 @@
+<div class="row row-negative d-none">
+  <div class="col">
+    <div class="form-group">
+      <label for="">Furnisher</label
+      ><input
+        required
+        name="credit[name]"
+        type="text"
+        class="form-control form-control-sm credit-name"
+      />
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="form-group">
+      <label for="">Type</label>
+      <select
+        required
+        name="credit[category]"
+        class="form-control form-control-sm credit-type"
+      >
+        <option selected disabled>select a type</option>
+        <% for( let negItemCat of negItemCats){%>
+        <option value="<%=negItemCat._id%>"><%=negItemCat.name %></option>
+        <% } %>
+      </select>
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="">Bureaus</label>
+      <select
+        required
+        name="credit[bureaus]"
+        class="form-control form-control-sm credit-bureaus select2"
+        multiple="multiple"
+        data-placeholder="Select the bureaus "
+      >
+        <option value="transunion">Transunion</option>
+        <option value="equifax">Equifax</option>
+        <option value="experian">Experian</option>
+      </select>
+    </div>
+  </div>
+  <div class="col col-sm-2 rm-btn d-none">
+    <div class="form-group">
+      <label class="text-white">d</label
+      ><input
+        required
+        value="remove"
+        type="button"
+        class="form-control form-control-sm btn btn-danger btn-sm"
+      />
+    </div>
+  </div>
+</div>

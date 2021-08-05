@@ -1,0 +1,116 @@
+<div>
+  <%if(creditsProfiles&&creditsProfiles.length&&creditsProfiles[creditsProfiles.length-1].itemsRemoved.length){%>
+  <div>
+    <div class="col-12">
+      <div class="callout callout-info">
+        <h5>Debt's details:</h5>
+      </div>
+
+      <!-- Main content -->
+      <div class="invoice p-3 mb-3">
+        <h5>Items dues</h5>
+        <!-- Table row -->
+        <div class="row">
+          <div class="col-12 table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th>Bureaus</th>
+                  <th>Price</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(let itemRemove of
+                creditsProfiles[creditsProfiles.length-1].itemsRemoved){%>
+                <tr>
+                  <% var rcat = negativeItems.find(n=>
+                  n._id.equals(itemRemove.category))%>
+                  <td><%=itemRemove.name%></td>
+                  <td><%=rcat.name%></td>
+                  <td><%= itemRemove.bureaus.toString()%></td>
+                  <% let item = negativeItems.find(one=>
+                  itemRemove.category==one._id)%> <%="item value"%>
+                  <%=itemRemove.category%>
+
+                  <td><%=rcat.price%></td>
+                  <td>$<%=rcat.price*itemRemove.bureaus.length%></td>
+                </tr>
+                <%}%>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+          <!--  -->
+          <div class="col-6">
+            <p
+              class="text-muted well well-sm shadow-none"
+              style="margin-top: 10px"
+            >
+              These are calculated based on the customer's Membership Plan
+            </p>
+          </div>
+          <!-- /.col -->
+          <div class="col-6">
+            <p class="lead">
+              Amount Due
+              <%=creditsProfiles[creditsProfiles.length-1].dateAddedOnProfile.toLocaleDateString()%>
+            </p>
+
+            <div class="table-responsive">
+              <table class="table">
+                <tr>
+                  <th style="width: 50%">Subtotal:</th>
+                  <% var debtTotal=0; 
+                  for(let removeItem of
+                  creditsProfiles[creditsProfiles.length-1].itemsRemoved){ 
+                  
+                  var removedCategory = negativeItems.find(n=>
+                  n._id.equals(removeItem.category))
+                   debtTotal+=
+                  removeItem.bureaus.length*removedCategory.price 
+                }%>
+                  <td>$ <%=debtTotal%></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- this row will not appear when printing -->
+        <div class="row no-print">
+          <div class="col-12">
+            <a
+              href="invoice-print.html"
+              rel="noopener"
+              target="_blank"
+              class="btn btn-default"
+              ><i class="fas fa-print"></i> Print</a
+            >
+            <button type="button" class="btn btn-success float-right">
+              <i class="far fa-credit-card"></i> Send by email
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary float-right"
+              style="margin-right: 5px"
+            >
+              <i class="fas fa-download"></i> Collect Payment
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- /.invoice -->
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+</div>
+<%}else{%>
+<h5>There's it no debts for this customer yet</h5>
+<%}%>

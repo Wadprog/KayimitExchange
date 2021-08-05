@@ -1,0 +1,242 @@
+<div>
+  <div class="col-12">
+    <div class="d-print-none">
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="membership"
+          id="inlineRadio1"
+          value="gold"
+          checked
+        />
+        <label class="form-check-label" for="inlineRadio1"
+          >Gold Membership</label
+        >
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="membership"
+          id="inlineRadio2"
+          value="black"
+        />
+        <label class="form-check-label" for="inlineRadio2"
+          >Black Membership</label
+        >
+      </div>
+    </div>
+
+    <div class="callout callout-info">
+      <h5>Good faith estimate details:</h5>
+    </div>
+    <div class="row invoice-info d-none d-print-flex">
+      <div class="col-sm-6 invoice-col">
+        From
+        <address>
+          <strong>Oasis Firm.</strong><br />
+          2701 W Oakland Park Blvd, Suite 410<br />
+          Oakland Park, Florida 33311<br />
+          Phone: (833) 886 2747<br />
+          Email: ccyrius@theoasisfirm.com
+        </address>
+      </div>
+      <!-- /.col -->
+      <div class="col-sm-6 invoice-col">
+        To
+        <address>
+          <strong
+            ><%= creditsProfile.customer.firstName +" "+
+            creditsProfile.customer.lastName %> </strong
+          ><br />
+          Email: <%=creditsProfile.customer.email %> ><br />
+        </address>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="invoice p-3 mb-3">
+      <div class="d-flex justify-content-between">
+        <h5>Items currently shown on profile</h5>
+        <span class="d-print-none">
+          <i class="fas fa-undo d-none undo-btn"></i
+        ></span>
+      </div>
+
+      <!-- Table row -->
+      <div class="row">
+        <div class="col-12 table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Bureaus</th>
+                <th id="membership-title"><span>Gold</span> Membership</th>
+                <th>Subtotal</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (let negItem of creditsProfile.listNegativeItems()){ %> <%
+              let rcat =negativeItems.find(n=> n._id.equals(negItem.category))
+              %>
+              <tr class="negative-item-removed">
+                <td><%=negItem.name%></td>
+                <td><%=rcat.name%></td>
+                <td class="bureaus-list"><%=negItem.bureauList%></td>
+
+                <td class="remove-item-price">
+                  $
+                  <span class="gold-price display"><%=rcat.price%></span>
+                  <span class="black-price d-none">97</span>
+                </td>
+                <td class="gfe-subtotal">
+                  $
+                  <span></span>
+                </td>
+                <td>
+                  <i class="fas fa-times c-remove d-print-none"></i>
+                </td>
+              </tr>
+              <% } %>
+            </tbody> 
+          </table>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+      <div class="row">
+        <!--  -->
+        <div class="col-6">
+          <p
+            class="text-muted well well-sm shadow-none"
+            style="margin-top: 10px"
+          >
+            These calculations are made based on the Gold membership Plan
+          </p>
+        </div>
+        <!-- /.col -->
+        <div class="col-6">
+          <div class="table-responsive">
+            <table class="table">
+              <tr>
+                <th style="width: 50%">Total:</th>
+
+                <td id="gfe-total"></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- this row will not appear when printing -->
+      <div class="row no-print">
+        <div class="col-12">
+          <a
+            href="invoice-print.html"
+            rel="noopener"
+            target="_blank"
+            class="btn btn-default"
+            ><i class="fas fa-print"></i> Print</a
+          >
+          <button type="button" class="btn btn-success float-right">
+            <i class="far fa-credit-card"></i> Email gfe
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary float-right"
+            style="margin-right: 5px"
+          >
+            <i class="fas fa-download"></i> Turn to customer
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- /.invoice -->
+  </div>
+  <!-- /.col -->
+
+  <!-- /.row -->
+
+  <script>
+    const removeButtons = document.querySelectorAll('.c-remove')
+    const resetButton = document.querySelector('.undo-btn')
+    const memberships = document.getElementsByName('membership')
+    const membership_title = document.querySelector('#membership-title>span')
+    resetButton.addEventListener('click', (e) => {
+      for (let removeButton of removeButtons)
+        removeButton.parentElement.parentElement.classList.remove('d-none')
+      e.target.classList.add('d-none')
+      calculateTotal()
+    })
+    for (let removeButton of removeButtons) {
+      removeButton.addEventListener('click', (e) => {
+        e.target.parentElement.parentElement.classList.add('d-none')
+        if (resetButton.classList.contains('d-none'))
+          resetButton.classList.remove('d-none')
+        calculateTotal()
+      })
+    }
+
+    for (let plan of memberships) {
+      plan.addEventListener('change', () => {
+        membership_title.innerText = selectedMembership().toUpperCase()
+        calculateTotal()
+      })
+    }
+
+    function selectedMembership() {
+      return memberships[0].checked ? 'gold' : 'black'
+    }
+
+    function calculateTotal() {
+      let membership = selectedMembership()
+      const negative_items_removed = document.querySelectorAll(
+        '.negative-item-removed'
+      )
+
+      for (let removeNegItem of negative_items_removed) {
+        let rowSubTot = 0
+        let rowPrice = 0
+        const bureauCount = removeNegItem
+          .querySelector('.bureaus-list')
+          .innerText.split(',').length
+        const remove_item_price = removeNegItem.querySelector(
+          '.remove-item-price'
+        )
+        const subTot = removeNegItem.querySelector('.gfe-subtotal')
+
+        const goldPrice = remove_item_price.querySelector('.gold-price')
+        const blackPrice = remove_item_price.querySelector('.black-price')
+        if (membership === 'gold') {
+          goldPrice.classList.remove('d-none')
+          blackPrice.classList.add('d-none')
+          rowPrice = parseInt(goldPrice.innerText)
+          subTot.querySelector('span').innerText = rowPrice * bureauCount
+        } else {
+          goldPrice.classList.add('d-none')
+          blackPrice.classList.remove('d-none')
+          rowPrice = parseInt(blackPrice.innerText)
+          subTot.querySelector('span').innerText = rowPrice //rowPrice * bureauCount
+        }
+      }
+
+      //Second part
+      const subtotalContainers = document.querySelectorAll('.gfe-subtotal')
+      const totalContainer = document.querySelector('#gfe-total')
+      let total = 0
+      for (let subtotalContainer of subtotalContainers) {
+        if (!subtotalContainer.parentElement.classList.contains('d-none')) {
+          const sp = subtotalContainer.querySelector('span')
+          const subtotal = parseInt(sp.innerText)
+          total += subtotal
+        }
+      }
+
+      totalContainer.innerText = '$' + total
+    }
+    calculateTotal()
+  </script>
+</div>

@@ -1,0 +1,19 @@
+<%- include("partials/head.ejs")%>
+<!-- Site wrapper -->
+<div class="wrapper">
+  <%- include('partials/nav.ejs')%> <%- include('partials/sideBar.ejs')%>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <%- include('partials/alert.ejs')%> <%- include('partials/pageHeader.ejs')%>
+    <!-- Main content -->
+    <section class="content">
+      <!-- Default box -->
+      <%- body -%>
+      <!-- /.card -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+</div>
+<%- include('partials/footer.ejs') %>

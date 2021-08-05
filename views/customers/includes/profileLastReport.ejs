@@ -1,0 +1,144 @@
+<div style="min-height: 450px; max-height:700px; overflow-y: overlay;padding: 3px;">
+  <% if(creditsProfiles.length){ %>
+    <div>
+    <!-- Dates information  -->
+      <section class="row">
+        <p class="text-wrap text-left">
+          <b> Dates:</b>
+          <%creditsProfiles.forEach ( (creditProfile, idx)=>{%>
+         <a 
+         href="/credits/<%=creditProfile._id%>"> 
+         <%=creditProfile.dateAddedOnProfile.toLocaleDateString()%>
+        </a>
+          <%if(idx<creditsProfiles.length-1){%>
+            <b>&gt</b>
+          <% } %> 
+          <% }) %>
+        </p>
+      </section>
+      <!-- Scores infortmation -->
+      <section class="my-2">
+        <h5 class="text-bold">Scores:</h5>
+        <ul>
+          <li>
+            Experian: <% creditsProfiles.forEach ( (creditProfile, idx)=>{%>
+            <%=creditProfile.scores.experian%> 
+            <%if(idx<creditsProfiles.length-1){%>
+                <b>&gt</b>
+              <% } %> 
+            <% }) %>
+          </li>
+          <li>
+            Equifax: <% creditsProfiles.forEach ( (creditProfile, idx)=>{%>
+            <%=creditProfile.scores.equifax%>
+            <%if(idx<creditsProfiles.length-1){%>
+                <b>&gt</b>
+              <% } %>  <% }) %>
+          </li>
+          <li>
+            Transunion: <% creditsProfiles.forEach ( (creditProfile, idx)=>{%>
+            <%=creditProfile.scores.transunion%> 
+            <%if(idx<creditsProfiles.length-1){%>
+                <b>&gt</b>
+              <% } %> 
+            <% }) %>
+          </li>
+        </ul>
+      </section>
+      <!-- Total Items on profile -->
+      <section class="mt-2">
+        <p class="text-left">
+          <b>Total Items:</b> 
+          <% creditsProfiles.forEach ( (creditProfile,idx)=>{%> <%=creditProfile.negativeItems.length%> 
+            <%if(idx<creditsProfiles.length-1){%>
+            <b>&gt</b>
+          <% } %> 
+            <% }) %>
+        </p>
+      </section>
+<!-- Items added -->
+      <section>
+        <p><b>Items Added:</b></p>
+        <% creditsProfiles.forEach ( (creditProfile, idx)=>{%>
+        <strong>
+          <%=creditProfile.dateAddedOnProfile.toLocaleDateString()%>
+        </strong>
+        <%if(creditProfile.itemsAdded.length){%>
+        <ul>
+           <%for(let itemAdded of creditProfile.itemsAdded){%>
+          <li>
+            <div class="d-flex justify-content-between">
+            <div>
+            <%=itemAdded.name%> | ON <%=itemAdded.bureaus.toString().toUpperCase()%> <%=itemAdded.bureaus.length<2&&"ONLY"%>
+            </div>
+            <div> <%=itemAdded.bureaus.length%></div>
+        </div>
+            </li>
+          <%}%>
+        </ul>
+        <%}else{%>
+            
+            <li class="ml-3">none</li>
+            <%}%>
+        <%})%>
+      </section>
+<!-- Items removed -->
+      <section>
+        <p><b>Items Removed:</b></p>
+        <% creditsProfiles.forEach ( (creditProfile, idx)=>{%>
+        <strong>
+          <%=creditProfile.dateAddedOnProfile.toLocaleDateString()%>
+        </strong>
+
+        <%if(creditProfile.itemsRemoved.length){%>
+        <ul>
+           <%for(let itemRemove of creditProfile.itemsRemoved){%>
+          <li>
+            <div class="d-flex justify-content-between">
+            <div>
+            <%=itemRemove.name%> 
+            <span class="badge badge-danger">Paid Status soon</span> | OFF 
+            <%=itemRemove.bureaus.toString().toUpperCase()%> <%=itemRemove.bureaus.length<2&&"ONLY"%>
+            </div>
+            <div> -<%=itemRemove.bureaus.length%></div>
+        </div>
+            </li>
+          <%}%>
+        </ul>
+        <%}else{%>
+            
+            <li class="ml-3">none</li>
+            <%}%>
+        <%})%>
+      </section>
+    <!-- Notes  -->
+      <section class= "box" data-ol-has-click-handler="">
+        <form action='/customers/<%=customer._id%>/reportNote?_method=PUT' method="POST">
+          <div class="form-group">
+            <label for="notes">Notes</label>
+            <textarea
+            id="summernote"
+            name="reportNote"
+              class="form-control "
+              rows="3"
+              placeholder="Enter notes about this profile here"
+            >
+            <%-customer.reportNote%>
+            </textarea>
+          </div>
+          <button class="btn btn-sm btn-primary">Set note</button>
+        </form>
+
+      </section>
+    </div>
+ 
+
+  <% } else{ %>
+
+  <p class="text-center">
+  <i class="fas fa-exclamation-circle fa-5x"></i>
+  </p>
+  <p class="text-center">No Report. This customer have never been assessed</p>
+
+  <% } %>
+</div>

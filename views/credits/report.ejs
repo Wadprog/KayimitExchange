@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <div
+    class="print-container"
+    style="
+      position: relative;
+      max-width: 875px;
+      margin: auto;
+      max-height: 950px;
+      overflow-y: scroll;
+      border: 3px solid #f8f8ff;
+
+      @media print {
+        border: 51px solid red;
+        .print-container {
+          border: 51px solid red;
+        }
+      }
+    "
+  >
+    <div class="row my-2 d-none">
+      <button id="tpdf" class="btn btn-primary btn-sm">Print</button>
+    </div>
+
+    <hr class="my-5" style="background: #f4f6f9; height: 5px" />
+
+    <div
+      style="background-color: #f8f8ff"
+      class="bg-white"
+      id="print-me"
+      data-document-name="report"
+    >
+      <%- include('includes/cover.ejs')%> <%- include('includes/intro.ejs')%>
+      <%- include('includes/part1.ejs')%> <%- include('includes/part3.ejs')%>
+    </div>
+  </div>
+</div>

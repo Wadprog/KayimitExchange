@@ -1,0 +1,26 @@
+<!-- The timeline -->
+<div class="timeline timeline-inverse">
+  <!-- timeline time label -->
+  <%for(const log of logs){%>
+  <div class="time-label">
+    <span class="bg-danger"> 10 Feb. 2014 </span>
+  </div>
+  <!-- /.timeline-label -->
+  <!-- timeline item -->
+  <div>
+    <i class="fas fa-user bg-info"></i>
+
+    <div class="timeline-item">
+      <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
+
+      <h3 class="timeline-header border-0">
+        <a href="#">Sarah Young</a> accepted your friend request
+      </h3>
+    </div>
+  </div>
+  <!-- END timeline item -->
+  <%}%>
+  <div>
+    <i class="far fa-clock bg-gray"></i>
+  </div>
+</div>

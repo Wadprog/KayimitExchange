@@ -1,0 +1,214 @@
+<div class="modal fade" id="assess-modal" style="">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Assessing <%=customer.fullName%></h4>
+
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Provide the current score for the following</p>
+        <form
+          id="credit-form"
+          class="form"
+          method="POST"
+          action="/customers/<%=customer._id%>/creditDetails?_method=PUT"
+        >
+          <div class="form-row">
+            <div class="col">
+              <label class="text-muted">Experian </label>
+              <input
+                class="form-control-sm"
+                name="scores[experian]"
+                aria-describedby="emailHelp"
+                placeholder="Score"
+              />
+            </div>
+
+            <div class="col">
+              <label class="text-muted">Equifax </label>
+              <input
+                name="scores[equifax]"
+                class="form-control-sm"
+                aria-describedby="emailHelp"
+                placeholder="Score"
+              />
+            </div>
+
+            <div class="col">
+              <label class="text-muted">Transunion </label>
+              <input
+                name="scores[transunion]"
+                class="form-control-sm"
+                aria-describedby="score"
+                placeholder="Score"
+              />
+            </div>
+          </div>
+          <hr />
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Date</span>
+            </div>
+            <input name="dateAddedOnProfile" type="date" class="form-control" />
+            ]
+            <div class="input-group-append">
+              <btn class="btn btn-primary add"><i class="fas fa-plus"></i></btn>
+            </div>
+          </div>
+
+          <div class="form-row negativeItem-row my-2 d-none">
+            <div class="col mr-2">
+              <label class="text-muted">Name</label>
+              <input
+                class="negativeItem-name"
+                class="form-control-sm"
+                aria-describedby="score"
+                placeholder="Score"
+              />
+            </div>
+
+            <div class="col form-check">
+              <input
+                type="checkbox"
+                class="negativeItem-transunion"
+                class="form-check-input"
+              />
+              <label class="text-muted form-check-label">Transunion </label>
+            </div>
+            <div class="col form-check mx-2">
+              <input
+                type="checkbox"
+                class="negativeItem-equifax"
+                class="form-check-input"
+              />
+              <label class="text-muted form-check-label">Equifax </label>
+            </div>
+            <div class="col form-check">
+              <input
+                type="checkbox"
+                class="negativeItem-experian"
+                class="form-check-input"
+              />
+              <label class="text-muted form-check-label">Experian </label>
+            </div>
+          </div>
+          <%if(creditsProfiles&&Array.isArray(creditsProfiles)&&creditsProfiles.length){
+           %>
+          <div class="form-row negativeItem-row my-2">
+            <div class="col mr-2">
+              <label class="text-muted">Name</label>
+              <input
+                class="negativeItem-name"
+                class="form-control-sm"
+                aria-describedby="score"
+                placeholder="Score"
+                value="<%=credit.name%>"
+              />
+            </div>
+
+            <div class="col form-check">
+              <input type="checkbox" class="negativeItem-transunion"
+              class="form-check-input"
+             />
+              <label class="text-muted form-check-label">Transunion </label>
+            </div>
+            <div class="col form-check mx-2">
+              <input type="checkbox" class="negativeItem-equifax"
+              class="form-check-input" 
+              <label class="text-muted form-check-label">Equifax </label>
+            </div>
+            <div class="col form-check">
+              <input type="checkbox" class="negativeItem-experian"
+              class="form-check-input"
+          
+              <label class="text-muted form-check-label">Experian </label>
+            </div>
+          </div>
+          <%}%>
+          <button
+            type="submit"
+            id="submit-btn"
+            class="btn btn-primary btn-sm mb-2"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- ./wrapper -->
+</div>
+<script type="text/javascript">
+  function removeRow(e) {
+    console.log('removing')
+    $(this).parent().remove()
+  }
+
+  var negativeItems = []
+
+  $('.add').click(function () {
+    //Adding extra row .
+    const removeBtn = document.createElement('button')
+    removeBtn.className = 'btn btn-danger remove'
+    const btnAttr = document.createAttribute('type')
+    btnAttr.value = 'button'
+    removeBtn.setAttributeNode(btnAttr)
+    const btnText = document.createElement('i')
+    btnText.className = 'fas fa-times'
+    removeBtn.append(btnText)
+
+    $('#credit-form > .negativeItem-row:first')
+      .clone(true)
+      .removeClass('d-none')
+      .prepend(removeBtn)
+      .insertBefore('#credit-form > #submit-btn')
+    removeBtn.addEventListener('click', removeRow)
+    return false
+  })
+
+  $('.remove').click(removeRow)
+
+  $('#credit-form').submit(function (event) {
+    event.preventDefault()
+    //Fetching all fields from
+
+    var allNegativeItemRows = document.querySelectorAll('.negativeItem-row')
+
+    for (let row of allNegativeItemRows) {
+      if (!row.classList.contains('d-none')) {
+        let name = row.querySelector('.negativeItem-name').value
+        let transunion = row.querySelector('.negativeItem-transunion').checked
+        let equifax = row.querySelector('.negativeItem-equifax').checked
+        let experian = row.querySelector('.negativeItem-experian').checked
+
+        if (name)
+          negativeItems.push({
+            name,
+            transunion,
+            equifax,
+            experian,
+          })
+      }
+    }
+
+    // Adding the data to the body
+    var postData = $(this).serializeArray()
+    postData.push({
+      name: 'negativeItems',
+      value: JSON.stringify(negativeItems),
+    })
+    //sending the data to the server
+    url = $(this).attr('action')
+    $.post(url, postData, function () {})
+  })
+</script>

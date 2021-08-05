@@ -1,0 +1,77 @@
+<!-- This is cloned an modified to create ech new row -->
+<%- include('../../credits/includes/row_neg.ejs') %>
+<div class="container-fluid">
+  <form
+    id="negItem-form"
+    action="/credits"
+    method="post"
+    class="to-validate"
+    novalidate
+  >
+    <div class="row">
+      <div class="form-group">
+        <label for="date"> Last asses date </label>
+        <%=` ${creditsProfiles&&creditsProfiles.length?creditsProfiles[
+        creditsProfiles.length-1 ].dateAddedOnProfile.toLocaleDateString():""} `
+        %>
+        <input
+          required
+          name="creditReport[date]"
+          type="date"
+          class="form-control form-control-sm"
+        />
+      </div>
+    </div>
+    <!--Customer's Detail-->
+    <div class="row d-none">
+      <input
+        value="<%=customer._id%>"
+        name="customer[_id]"
+        type="text"
+        class="form-control form-control-sm"
+      />
+    </div>
+
+    <h5>Scores' details</h5>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="">Transunion</label><input required
+          name="scores[transunion]" type="text" class="form-control
+          form-control-sm"
+          value="<%=creditsProfiles&&creditsProfiles.length?creditsProfiles[creditsProfiles.length-1].scores.transunion:""
+          %>" />
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="">Experian</label><input required name="scores[experian]"
+          type="text" class="form-control form-control-sm"
+          value="<%=creditsProfiles&&creditsProfiles.length?creditsProfiles[creditsProfiles.length-1].scores.experian:""
+          %>" />
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="">Equifax</label><input required name="scores[equifax]"
+          type="text" class="form-control form-control-sm"
+          value="<%=creditsProfiles&&creditsProfiles.length?creditsProfiles[creditsProfiles.length-1].scores.equifax:""
+          %>" />
+        </div>
+      </div>
+    </div>
+
+    <h5>Negative items</h5>
+
+    <!-- The rows will be inserted here-->
+    <%-
+    creditsProfiles.length?CreditRowMaker(creditsProfiles[creditsProfiles.length-1].negativeItems,negativeItems):""
+    %>
+    <input
+      id="btn-submit"
+      type="submit"
+      value="Submit"
+      class="btn btn-sm btn-block btn-primary"
+    />
+  </form>
+</div>

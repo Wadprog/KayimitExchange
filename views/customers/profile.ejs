@@ -1,0 +1,230 @@
+<% layout('blank') -%>
+      <div class="container-fluid">
+      
+        
+        <div class="row">
+          <div class="col-md-3">
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-header p-0 border-bottom-0">
+                <div class="btn-group float-right">
+                 
+                 
+                  <button class="btn btn-sm btn-white">
+                    <i class="fas fa-envelope"></i>
+                  </button>
+
+                  <button class="btn btn-sm btn-white">
+                    <i class="fas fa-sms"></i>
+                  </button>
+                  <button class="btn btn-sm btn-white">
+                    <i class="fas fa-sticky-note"></i>
+                  </button>
+                  <button class="btn btn-sm btn-white">
+                    <i class="fas fa-tasks"></i>
+                  </button>
+                 
+                  <button
+                    type="button btn-sm"
+                    class="btn btn-white dropdown-toggle dropdown-icon"
+                    data-toggle="dropdown"
+                  >
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <div class="dropdown-menu" role="menu">
+                    <a class="dropdown-item" href="#">Assess</a>
+                    <a class="dropdown-item" href="#">Review last report</a>
+                    <a class="dropdown-item" href="#">Send sms</a>
+                    <a class="dropdown-item" href="#">Send new email</a>
+                    <div class="dropdown-divider"></div>
+                    <a
+                      class="dropdown-item text-danger"
+                      data-toggle="modal"
+                      data-target="#modal-sm"
+                      ><b>Delete account</b></a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="card-body box-profile">
+                <div class="text-center">
+                  <img
+                    class="profile-user-img img-fluid img-circle"
+                    src="<%=`${customer.img? customer.img:"./../dist/img/avatar.png"} ` %> "
+                    alt="User profile picture"
+                  />
+                </div>
+
+                <h3 class="profile-username text-center">
+                  <%=`${customer.fullName} `%>
+                </h3>
+
+                <p class="text-muted text-center"><%=customer.status%></p>
+                <form class="form form-inline text-muted"> 
+                  <div class="form-group row">
+                  <label class="col-sm-4 col-form-label"> Membership </label>
+                  <div class="col-sm-6">
+                    <input class=" bg-secondary form-control-plaintext " value="<%=customer.membershipPlan.toUpperCase()%>"/>
+                  </div>
+                  </div>
+                  
+                  
+                  
+                  </form>
+
+                <h6 class="text-left text-bold">Last Scores</h6>
+                <%if(creditsProfiles&&Array.isArray(creditsProfiles)&&creditsProfiles.length){%>
+                <ul class="list-group list-group-unbordered">
+                  <li class="list-group-item">
+                    <b>Experian</b>
+                    <span class="float-right"
+                      ><%=creditsProfiles[creditsProfiles.length - 1].scores.experian %></span.experian %></span.experian%></span
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    <b>Equifax</b>
+                    <span class="float-right"
+                      ><%=creditsProfiles[creditsProfiles.length - 1].scores.equifax%></span
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    <b>Transunion</b>
+                    <span class="float-right">
+                      <%=creditsProfiles[creditsProfiles.length - 1].scores.transunion%>
+                    </span>
+                   
+                  </li>
+                </ul>
+                <%}else{%> There is no score available for this customer yet
+                <%}%>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+            <!-- About Me Box -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Why fix my credit ?</h3>
+              </div>
+
+              <!-- /.card-header -->
+              <div class="card-body">
+                <strong><i class="fas fa-book mr-1"></i> Reasons</strong>
+
+                <p class="text-muted">
+                  <form action="/customers/<%=customer._id%>/repairReason?_method=PUT" method="post">
+                    <textarea
+                    id="summernote"
+                    name="repairReason"
+                    class="form-control border-0 "
+                 
+                    placeholder="Enter notes about this profile here">
+                  <%=customer.repairReason%> 
+                  </textarea>
+                  <button type="text" class="btn btn-primary btn-sm">
+                    set</button>
+                </form>
+                </p>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+            <a
+              class="btn btn-outline-danger btn-sm"
+              data-toggle="modal"
+              data-target="#modal-sm"
+              ><b>Delete account</b></a
+            >
+          </div>
+          <!-- /.col -->
+          <div class="col-md-9">
+            <div class="card">
+              <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                  <li class="nav-item">
+                    <a
+                      class="nav-link active"
+                      href="#activity"
+                      data-toggle="tab"
+                      >Details</a
+                    >
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="#timeline" data-toggle="tab"
+                      >Timeline</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#settings" data-toggle="tab"
+                      >Edit</a
+                    >
+                  </li>
+
+                 
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="#assess" data-toggle="tab">Assess</a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="#last-report" data-toggle="tab">Last Report</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#more" data-toggle="tab">Debt</a>
+                  </li>
+                </ul>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content">
+                  <div class="active tab-pane" id="activity">
+                   <%- include("includes/profileActivities.ejs")%>
+                    </div>
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="timeline">
+                    <%- include("includes/profileTimelines.ejs")%> 
+                    </div>
+                  <!-- /.tab-pane -->
+
+                  <div class="tab-pane" id="settings">
+                    <%- include("../partials/customer/edit.ejs")%>
+                  </div>
+                  
+                  <div class="tab-pane" id="assess">
+                    <%- include("includes/profileAsses2.ejs")%> 
+                    </div>
+                    <div class="tab-pane" id="last-report">
+                      <%- include("includes/profileLastReport.ejs")%> 
+                    </div>
+                  <div class="tab-pane" id="more"> 
+                    <%- include("includes/profileDebt.ejs")%> </div>
+                  
+
+                  <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+ 
+</div>
+
+
+<%- include('includes/delCxModal.ejs') %> 
+
+<script>
+  var customerPath="/customers/<%=customer.id%>"
+  </script>

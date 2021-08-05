@@ -1,0 +1,32 @@
+<div class="modal fade" id="modal-sm">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Delete request</h4>
+  
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            Are you sure you want to delete the profile of <%=
+            customer.firstName%>
+          </p>
+          <form
+            method="POST"
+            action="/customers/<%=customer._id%>?_method=DELETE"
+          >
+            <button type="submit" class="btn btn-danger btn-block">Delete</button>
+          </form>
+        </div>
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- ./wrapper -->
+  </div>

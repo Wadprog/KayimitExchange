@@ -1,0 +1,28 @@
+<% layout('blank') -%>
+<div class="card">
+  <form method="post" <% if(negItem._id){ %>
+    action="/negativeItemsCategories/<%=negItem._id%>?_method=PUT" <% }else{ %>
+    action="/negativeItemsCategories" <% } %> >
+    <div class="card-body">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Name</label>
+        <input <% if(negItem.id){ %>
+        value="<%=negItem.name%>" <% } else{%> placeholder="Enter a name for
+        thenegative item" <% } %> type="text" class="form-control"
+        name="negativeItem[name]" />
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Price</label>
+        <input <% if(negItem.id){ %>
+        value="<%=negItem.price%>" <% } else{%> placeholder=" Enter Price for
+        gold membership" <% } %> type="number" class="form-control"
+        name="negativeItem[price]" />
+      </div>
+    </div>
+    <!-- /.card-body -->
+
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>

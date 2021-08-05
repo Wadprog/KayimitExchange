@@ -1,0 +1,125 @@
+<% layout('blank') -%>
+      <!-- Default box -->
+      <div class="card bg-light" style="border: none">
+        <div class="card-header">
+          <h3 class="card-title">Fixed Header Table</h3>
+
+          <div class="card-tools">
+            <div class="input-group input-group-sm" style="width: 250px">
+              <input
+                type="text"
+                id="table_search"
+                class="form-control float-right"
+                placeholder="Search"
+              />
+
+              <div class="input-group-append ml-3"></div>
+              <div class="input-group-append ml-2">
+                <button type="submit" class="btn btn-default">
+                  <i class="fas fa-filter"></i>
+                </button>
+                <a
+                href="/customers/new"
+                  type="button"
+                  class="btn btn-default"
+                  
+                >
+                  <i class="fas fa-plus"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-header -->
+        <div
+          class="card-body mt-3 table-responsive p-0"
+          style="max-height: 800px"
+        >
+          <table class="table table-head-fixed text-nowrap">
+            <thead>
+              <tr>
+                <th class="text-muted">
+                  <input type="checkbox" />
+                </th>
+                <th class="text-muted">Name</th>
+                <th class="text-muted">Phone</th>
+                <th class="text-muted">Email</th>
+                <th class="text-muted">Added</th>
+                <th class="text-muted">--</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(let customer of allCustomers){%>
+              <tr>
+                <td>
+                  <i class="fas fa-ellipsis-v text-muted"></i>
+                </td>
+                <td class="p-2 customer-name">
+                  <a
+                    href="/customers/<%=customer._id%>"
+                    style="height: 24px; width: 24px; border-radius: 50%"
+                    class="bg-dark text-white text-center p-2 m-2 text-uppercase"
+                  >
+                    <%= `${customer.firstName[0]} ${customer.lastName[0]}`%>
+                  </a>
+                  <span>
+                  <%= `${customer.firstName} ${customer.lastName}`%>
+                </span>
+                  </td>
+                </td>
+                <td><%= customer.homeTelephone %></td>
+                <td><%= customer.email %></td>
+                <td><%= customer.addedDate %></td>
+              </tr>
+              <%}%>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!--The Modal-->
+  <div class="modal fade" id="add-customer">
+    <div class="modal-dialog add-customer">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add new customer</h4>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <%- include("../partials/customer/edit.ejs")%>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+ <script type="text/javascript">
+
+const customers= document.querySelectorAll('.customer-name > span')
+  document.getElementById('table_search').addEventListener('input', function(e) {
+    console.log(e.target.value)
+    
+    for(let customer of customers){
+      if(!e.target.value.trim().length){
+        customer.parentElement.parentElement.classList.remove('d-none')
+      }
+      else if(!customer.innerText.toLowerCase().includes(e.target.value.toLowerCase())){
+customer.parentElement.parentElement.classList.add('d-none')
+      }else{customer.parentElement.parentElement.classList.remove('d-none')}
+    }
+    console.log({customer})
+  })
+</script>

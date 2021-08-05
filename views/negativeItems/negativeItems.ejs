@@ -1,0 +1,67 @@
+<% layout('blank') -%>
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Negative Items categories</h3>
+
+    <div class="card-tools">
+      <div class="input-group input-group-sm" style="width: 250px">
+        <input
+          type="text"
+          name="table_search"
+          class="form-control float-right"
+          placeholder="Search"
+        />
+
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-default">
+            <i class="fas fa-search"></i>
+          </button>
+          <a
+            href="/negativeItemsCategories/new"
+            type="submit"
+            class="btn btn-default ml-2"
+          >
+            <i class="fas fa-plus"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body table-responsive p-0">
+    <% if(negativeItemCategories&& negativeItemCategories.length){%>
+    <table class="table table-hover text-nowrap">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Date added</th>
+          <th>Last updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(let negativeItemCategory of negativeItemCategories){%>
+
+        <tr>
+          <td>
+            <a href="negativeItemsCategories/<%=negativeItemCategory._id%>/edit"
+              ><%= negativeItemCategory.name %></a
+            >
+          </td>
+          <td><%= negativeItemCategory.price %> USD/Item removed</td>
+          <td><%=negativeItemCategory.dateAdded.toLocaleDateString() %></td>
+          <td><%= negativeItemCategory.lastModified.toLocaleDateString()%></td>
+        </tr>
+
+        <% }%>
+      </tbody>
+    </table>
+    <%}else{%>
+    <p>
+      You have not set any negative item category yet please create a new
+      negative item category <a href="/negItemCat/new">here</a>
+    </p>
+    <% } %>
+  </div>
+  <!-- /.card-body -->
+</div>

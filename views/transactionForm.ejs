@@ -1,0 +1,455 @@
+<% layout('blank') -%>
+<div class="wrapper">
+  <div class="container-fluid">
+    <div class="d-flex justify-content-end mr-4">
+      <button
+        type="button"
+        class="btn btn-default btn-sm border-0 mr-3"
+        data-toggle="modal"
+        data-target="#modal-default"
+      >
+        +
+      </button>
+      <h5 class="text-muted">Today's rate</h5>
+      <h5 class="text-dark">50.USD</h5>
+    </div>
+
+    <div class="card border-0">
+      <div
+        class="card-header border-transparent border-0 justify-content-between"
+      >
+        <h3 class="card-title">Latest transactions</h3>
+        <button
+          type="button"
+          class="btn btn-primary btn-sm mr-3"
+          data-toggle="modal"
+          data-target="#modal-default"
+        >
+          + New Transaction
+        </button>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body p-4">
+        <div class="table-responsive">
+          <table class="table m-0 table-striped">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Amount Origin</th>
+                <th>Amount Destination</th>
+                <th>Rate</th>
+                <th>Employee</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <a href="pages/examples/invoice.html">HGT->USD</a>
+                </td>
+                <td>Call of Duty IV</td>
+                <td>
+                  <span class="badge badge-success">Shipped</span>
+                </td>
+                <td>
+                  <div class="sparkbar" data-color="#00a65a" data-height="20">
+                    90,80,90,-70,61,-83,63
+                  </div>
+                </td>
+                <td>
+                  <div class="sparkbar" data-color="#00a65a" data-height="20">
+                    90,80,90,-70,61,-83,63
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="pages/examples/invoice.html">OR1848</a>
+                </td>
+                <td>Samsung Smart TV</td>
+                <td>
+                  <span class="badge badge-warning">Pending</span>
+                </td>
+                <td>
+                  <div class="sparkbar" data-color="#f39c12" data-height="20">
+                    90,80,-90,70,61,-83,68
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="pages/examples/invoice.html">OR7429</a>
+                </td>
+                <td>iPhone 6 Plus</td>
+                <td>
+                  <span class="badge badge-danger">Delivered</span>
+                </td>
+                <td>
+                  <div class="sparkbar" data-color="#f56954" data-height="20">
+                    90,-80,90,70,-61,83,63
+                  </div>
+                </td>
+                <td>
+                  <div class="sparkbar" data-color="#f56954" data-height="20">
+                    90,-80,90,70,-61,83,63
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="pages/examples/invoice.html">OR7429</a>
+                </td>
+                <td>Samsung Smart TV</td>
+                <td>
+                  <span class="badge badge-info">Processing</span>
+                </td>
+                <td>
+                  <div class="sparkbar" data-color="#00c0ef" data-height="20">
+                    90,80,-90,70,-61,83,63
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="pages/examples/invoice.html">OR1848</a>
+                </td>
+                <td>Samsung Smart TV</td>
+                <td>
+                  <span class="badge badge-warning">Pending</span>
+                </td>
+                <td>
+                  <div class="sparkbar" data-color="#f39c12" data-height="20">
+                    90,80,-90,70,61,-83,68
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="pages/examples/invoice.html">OR7429</a>
+                </td>
+                <td>iPhone 6 Plus</td>
+                <td>
+                  <span class="badge badge-danger">Delivered</span>
+                </td>
+                <td>
+                  <div class="sparkbar" data-color="#f56954" data-height="20">
+                    90,-80,90,70,-61,83,63
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="pages/examples/invoice.html">OR9842</a>
+                </td>
+                <td>Call of Duty IV</td>
+                <td>
+                  <span class="badge badge-success">Shipped</span>
+                </td>
+                <td>
+                  <div class="sparkbar" data-color="#00a65a" data-height="20">
+                    90,80,90,-70,61,-83,63
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.table-responsive -->
+      </div>
+      <!-- /.card-body -->
+      <div
+        class="card-footer clearfix justify-content-center align-items-center"
+      >
+        <button
+          type="button"
+          class="btn btn-primary btn-sm border-0 mr-3"
+          data-toggle="modal"
+          data-target="#modal-default"
+        >
+          + New Transaction
+        </button>
+      </div>
+      <!-- /.card-footer -->
+    </div>
+
+    <div class="modal fade" id="modal-default">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Default Modal</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Customer</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="source"
+                  aria-describedby="emailHelp"
+                  placeholder="customer name"
+                  onInput="fg()"
+                />
+              </div>
+              <ul id="customers-name" class="d-none">
+                <li>name:"John", id:1</li>
+                <li>name:"Hott", id:2</li>
+              </ul>
+
+              <div class="form-group">
+                <label for="exampleInputPassword1">Type of transaction</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="exampleInputPassword1"
+                  placeholder="Password"
+                />
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">From</label>
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Recipient's username"
+                    aria-label="Recipient's username"
+                    aria-describedby="basic-addon2"
+                  />
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2">USD</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">To</label>
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Recipient's username"
+                    aria-label="Recipient's username"
+                    aria-describedby="basic-addon2"
+                  />
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2">GHT</span>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+  </div>
+</div>
+
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- SweetAlert2 -->
+<script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- Toastr -->
+<script src="../../plugins/toastr/toastr.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
+<!-- Page specific script -->
+<script>
+  const source = document.getElementById('source');
+  const result = document.getElementById('result');
+
+  const inputHandler = function (e) {
+    console.log('aaa');
+  };
+
+  source.addEventListener('input', inputHandler);
+  source.addEventListener('propertychange', inputHandler);
+  function fg() {
+    const cx = document.getElementById('customers-name');
+    cx.classList.remove('d-none');
+
+    const li = cx.getElementsByTagName('li');
+
+    Array.from(li).forEach(function (li) {
+      li.addEventListener('click', (e) => {
+        source.value = e.target.innerHTML;
+        cx.classList.add('d-none');
+      });
+
+      
+    });
+  }
+  $(function () {
+    var Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+    });
+
+    $('.swalDefaultSuccess').click(function () {
+      Toast.fire({
+        icon: 'success',
+        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+      });
+    });
+    $('.swalDefaultInfo').click(function () {
+      Toast.fire({
+        icon: 'info',
+        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+      });
+    });
+    $('.swalDefaultError').click(function () {
+      Toast.fire({
+        icon: 'error',
+        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+      });
+    });
+    $('.swalDefaultWarning').click(function () {
+      Toast.fire({
+        icon: 'warning',
+        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+      });
+    });
+    $('.swalDefaultQuestion').click(function () {
+      Toast.fire({
+        icon: 'question',
+        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+      });
+    });
+
+    $('.toastrDefaultSuccess').click(function () {
+      toastr.success(
+        'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      );
+    });
+    $('.toastrDefaultInfo').click(function () {
+      toastr.info('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.');
+    });
+    $('.toastrDefaultError').click(function () {
+      toastr.error('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.');
+    });
+    $('.toastrDefaultWarning').click(function () {
+      toastr.warning(
+        'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      );
+    });
+
+    $('.toastsDefaultDefault').click(function () {
+      $(document).Toasts('create', {
+        title: 'Toast Title',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+      });
+    });
+    $('.toastsDefaultTopLeft').click(function () {
+      $(document).Toasts('create', {
+        title: 'Toast Title',
+        position: 'topLeft',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+      });
+    });
+    $('.toastsDefaultBottomRight').click(function () {
+      $(document).Toasts('create', {
+        title: 'Toast Title',
+        position: 'bottomRight',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+      });
+    });
+    $('.toastsDefaultBottomLeft').click(function () {
+      $(document).Toasts('create', {
+        title: 'Toast Title',
+        position: 'bottomLeft',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+      });
+    });
+    $('.toastsDefaultAutohide').click(function () {
+      $(document).Toasts('create', {
+        title: 'Toast Title',
+        autohide: true,
+        delay: 750,
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+      });
+    });
+    $('.toastsDefaultNotFixed').click(function () {
+      $(document).Toasts('create', {
+        title: 'Toast Title',
+        fixed: false,
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+      });
+    });
+    $('.toastsDefaultFull').click(function () {
+      $(document).Toasts('create', {
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+        title: 'Toast Title',
+        subtitle: 'Subtitle',
+        icon: 'fas fa-envelope fa-lg',
+      });
+    });
+    $('.toastsDefaultFullImage').click(function () {
+      $(document).Toasts('create', {
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+        title: 'Toast Title',
+        subtitle: 'Subtitle',
+        image: '../../dist/img/user3-128x128.jpg',
+        imageAlt: 'User Picture',
+      });
+    });
+    $('.toastsDefaultSuccess').click(function () {
+      $(document).Toasts('create', {
+        class: 'bg-success',
+        title: 'Toast Title',
+        subtitle: 'Subtitle',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+      });
+    });
+    $('.toastsDefaultInfo').click(function () {
+      $(document).Toasts('create', {
+        class: 'bg-info',
+        title: 'Toast Title',
+        subtitle: 'Subtitle',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+      });
+    });
+    $('.toastsDefaultWarning').click(function () {
+      $(document).Toasts('create', {
+        class: 'bg-warning',
+        title: 'Toast Title',
+        subtitle: 'Subtitle',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+      });
+    });
+    $('.toastsDefaultDanger').click(function () {
+      $(document).Toasts('create', {
+        class: 'bg-danger',
+        title: 'Toast Title',
+        subtitle: 'Subtitle',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+      });
+    });
+    $('.toastsDefaultMaroon').click(function () {
+      $(document).Toasts('create', {
+        class: 'bg-maroon',
+        title: 'Toast Title',
+        subtitle: 'Subtitle',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+      });
+    });
+  });
+</script>

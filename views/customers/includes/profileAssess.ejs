@@ -1,0 +1,214 @@
+<div >
+    <form id="credit-form" action="/credits/<%=customer._id%>"   role="form">
+    <!-- Date and add row btn -->
+      <div class="form-row">
+        <div class="col">
+        <div class="form-group">
+          <label for="date">
+          Last report date
+        </label>
+        <%=`
+        ${creditsProfiles&&creditsProfiles.length?creditsProfiles[
+          creditsProfiles.length-1
+        ].dateAddedOnProfile.toLocaleDateString():""}
+     ` %>"
+        <input 
+        id="dateAddedOnProfile" 
+        value=""
+        type="date" 
+        class="form-control form-control-sm"
+        placeholder="date">
+      </div>
+    </div>
+    
+    <div class="float-right btn-tool"">
+      <button id="add-btn"type="button"class="btn btn-sm btn-outline-primary ">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+      </div>
+     
+     <!-- credit scores  -->
+      <div class="form-row">
+
+        <div class="col">
+          <div class="form-group"><label for="">Transunion</label>
+            <input id="scores-transunion"placeholder="Enter current score" type="text" class="form-control form-control-sm"
+            value="<%=creditsProfiles&&creditsProfiles.length?creditsProfiles[creditsProfiles.length-1].scores.transunion:""
+            %>"></div>
+        </div>
+        <div class="col">
+          <div class="form-group"><label for="">Equifax</label><input id="scores-equifax" placeholder="Enter current score" type="text" class="form-control form-control-sm"
+            value="<%=creditsProfiles&&creditsProfiles.length?creditsProfiles[creditsProfiles.length-1].scores.equifax:""
+            %>"></div>
+        </div>
+        <div class="col">
+          <div class="form-group"><label for="">Experian</label><input id="scores-experian" placeholder="Enter current score" type="text" class="form-control form-control-sm"value="<%=creditsProfiles&&creditsProfiles.length?creditsProfiles[creditsProfiles.length-1].scores.experian:""
+            %>"></div>
+        </div>
+      </div>
+
+
+     <!-- First negative item row -->
+      <div class="form-row negativeItem-row d-none">
+        <div class="col">
+          <div class="form-group">
+            <label for="">Item's name</label>
+            <input type="text" class="form-control form-control-sm negativeItem-name"></div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="">Type</label>
+            <select name="" id="" class="form-control form-control-sm negativeItem-category">
+              <option selected disabled>Select a category</option>
+              <%for( let negItem of negativeItems){%>
+              <option value="<%=negItem._id%>"><%=negItem.name%></option>
+              <% } %> 
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group form-check"> 
+            <label class="text-white" for="">---</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend bg-white">
+                <div class="input-group-text bg-white border-0">
+                  <input type="checkbox" class="negativeItem-transunion" >
+                </div>
+              </div>
+              <input type="text" class="form-control form-control-sm border-0"  value="Transunion">
+            </div>
+           
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group form-check"> 
+            <label class="text-white" for="">---</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend bg-white">
+                <div class="input-group-text bg-white border-0">
+                  <input type="checkbox" class="negativeItem-equifax" >
+                </div>
+              </div>
+              <input type="text" class="form-control form-control-sm border-0"  value="Equifax">
+            </div>
+           
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group form-check"> 
+            <label class="text-white" for="">---</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend bg-white">
+                <div class="input-group-text bg-white border-0">
+                  <input type="checkbox" class="negativeItem-experian" >
+                </div>
+              </div>
+              <input type="text" class="form-control form-control-sm border-0"  value="Experian">
+            </div>
+           
+          </div>
+        </div>
+        
+        <div class="col-sm-1">
+          <div class="form-group">
+            <label for="" class="text-white">--</label>
+            <div class="remove-btn-wraper">
+
+            
+         
+        </div>
+        </div>
+        </div>
+        
+      </div>
+
+     <!-- Looping over the item on the customer 's profile '-->
+     <%creditsProfiles&&creditsProfiles.length&&creditsProfiles[creditsProfiles.length-1].negativeItems.forEach((negItem)=>{%>
+      <div class="form-row negativeItem-row">
+        <!--Name of the item -->
+        <div class="col">
+          <div class="form-group">
+            <label for="">Item's name</label>
+            <input type="text" class="form-control form-control-sm negativeItem-name" value="<%= negItem.name%>"></div>
+        </div>
+        <!-- Category of the negative item -->
+        <div class="col">
+          <div class="form-group">
+            <label for="">Type</label>
+            <select value="Charge-off"name="" id="" class="form-control form-control-sm negativeItem-category">
+              <% var selectedItem = negativeItems.find(n=> n._id.equals(negItem.category))%>
+
+              <option value="<%=negItem.category%>" selected><%=selectedItem.name%></option>
+              <% for (let n_items of negativeItems){%>
+              <option value="<%=n_items._id%>"><%=n_items.name%></option>
+              <%}%>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group form-check"> 
+            <label class="text-white" for="">---</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend bg-white">
+                <div class="input-group-text bg-white border-0">
+                  <input 
+                 <%=negItem.transunion? "checked":""%>
+                  type="checkbox" class="negativeItem-transunion" >
+                </div>
+              </div>
+              <input type="text" class="form-control form-control-sm border-0"  value="Transunion">
+            </div>
+           
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group form-check"> 
+            <label class="text-white" for="">---</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend bg-white">
+                <div class="input-group-text bg-white border-0">
+                  <input 
+                  <%=negItem.equifax? "checked":""%>
+                  type="checkbox" class="negativeItem-equifax" >
+                </div>
+              </div>
+              <input type="text" class="form-control form-control-sm border-0"  value="Equifax">
+            </div>
+           
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group form-check"> 
+            <label class="text-white" for="">---</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend bg-white">
+                <div class="input-group-text bg-white border-0">
+                  <input  <%=negItem.experian? "checked":""%>
+                  type="checkbox" class="negativeItem-experian" >
+                </div>
+              </div>
+              <input type="text" class="form-control form-control-sm border-0"  value="Experian">
+            </div>
+           
+          </div>
+        </div>
+        
+        <div class="col-sm-1">
+          <div class="form-group">
+            <label for="" class="text-white">--</label>
+            <div class="remove-btn-wraper">
+
+            
+         
+        </div>
+        </div>
+        </div>
+        
+      </div> 
+    <%})%>
+
+    <button id="btn-submit"type="submit" class="btn btn-primary btn-sm btn-block">Submit report</button>
+    </form>
+  
+  </div>

@@ -1,0 +1,37 @@
+<section>
+    <div class="p-4" style="min-height: 950px;">
+<h4>Part 3- ANALYSIS OF YOUR ACCOUNTS</h4>
+
+    <p class="text-justify mb-4 mt-2">
+      You have <b><%= creditsProfile.negativeItems.length%></b> items marked as
+      delinquent or derogatory. Recent late payments, collections, and other
+      derogatory items within the last six months will hurt your credit score
+      more than older inactive accounts.Accounts within the last 24 months carry
+      the second most weight. This is why it is crucial to pay all bills on time
+      and do not miss any payments.
+    </p>
+    <table class="table table-bordered table-danger">
+      <thead>
+        <tr>
+          <th class="text-center">Creditor/Furnisher</th>
+          <th class="text-center">Equifax</th>
+          <th class="text-center">Experian</th>
+          <th class="text-center">Transunion</th>
+          <th class="text-center">Issue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(let negItem of creditsProfile.negativeItems){%>
+        <tr>
+          <td class="text-center"><%= negItem.name %></td>
+          <td class="text-center"><%= negItem.equifax?"✅":"" %></td>
+          <td class="text-center"><%= negItem.experian?"✅":"" %></td>
+          <td class="text-center"><%= negItem.transunion?"✅":"" %></td>
+          <td class="text-center">@<%= negItem.name %></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+</div>
+<hr class="my-5" style="background:#f4f6f9; height:5px" />
+</section>
